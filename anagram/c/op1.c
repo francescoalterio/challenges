@@ -3,11 +3,17 @@
 int str_length(char *str);
 int str_comp(char *first_str, char *second_str);
 void str_sort(char str[], int length);
+void to_lower_case(char str[]);
 
 int anagram(char first_word[], char second_word[])
 {
     int first_word_length = str_length(first_word);
     int second_word_length = str_length(second_word);
+
+    to_lower_case(first_word);
+    to_lower_case(second_word);
+
+    printf("%s\n", first_word);
     if ((first_word_length != second_word_length) || (str_comp(first_word, second_word)))
     {
         return 0;
@@ -64,6 +70,17 @@ void str_sort(char str[], int length)
     }
 }
 
+void to_lower_case(char str[])
+{
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] < 97 && str[i] >= 65)
+        {
+            str[i] += 32;
+        }
+    }
+}
+
 int test(int value, int expect)
 {
     printf("EXPECT: %s - RESULT: %s\n", (expect) ? "True" : "False", (value) ? "True" : "False");
@@ -71,7 +88,7 @@ int test(int value, int expect)
 
 int main()
 {
-    char a[] = "aide";
+    char a[] = "AIDE";
     char b[] = "idea";
 
     char c[] = "aite";
