@@ -1,28 +1,35 @@
 #include <stdio.h>
+#include <string.h>
 
 int str_length(char *str);
 int str_comp(char *first_str, char *second_str);
 void str_sort(char str[], int length);
 void to_lower_case(char str[]);
 
-int anagram(char first_word[], char second_word[])
+int anagram(char *first_word, char *second_word[])
 {
     int first_word_length = str_length(first_word);
     int second_word_length = str_length(second_word);
 
-    to_lower_case(first_word);
-    to_lower_case(second_word);
+    char first_word_copy[first_word_length];
+    char second_word_copy[second_word_length];
 
-    printf("%s\n", first_word);
-    if ((first_word_length != second_word_length) || (str_comp(first_word, second_word)))
+    strcpy(first_word_copy, first_word);
+    strcpy(second_word_copy, second_word);
+
+    to_lower_case(first_word_copy);
+    to_lower_case(second_word_copy);
+
+    printf("%s\n", first_word_copy);
+    if ((first_word_length != second_word_length) || (str_comp(first_word_copy, second_word_copy)))
     {
         return 0;
     }
 
-    str_sort(first_word, first_word_length);
-    str_sort(second_word, second_word_length);
+    str_sort(first_word_copy, first_word_length);
+    str_sort(second_word_copy, second_word_length);
 
-    return str_comp(first_word, second_word);
+    return str_comp(first_word_copy, second_word_copy);
 }
 
 int str_length(char *str)
@@ -88,29 +95,11 @@ int test(int value, int expect)
 
 int main()
 {
-    char a[] = "AIDE";
-    char b[] = "idea";
-
-    char c[] = "aite";
-    char d[] = "idea";
-
-    char e[] = "earth";
-    char f[] = "heart";
-
-    char g[] = "ape";
-    char h[] = "pea";
-
-    char i[] = "hellooo";
-    char j[] = "helloo";
-
-    char k[] = "hi";
-    char l[] = "hi";
-
-    test(anagram(a, b), 1);
-    test(anagram(c, d), 0);
-    test(anagram(e, f), 1);
-    test(anagram(g, h), 1);
-    test(anagram(i, j), 0);
-    test(anagram(k, l), 0);
+    test(anagram("AIDE", "idea"), 1);
+    test(anagram("aite", "idea"), 0);
+    test(anagram("earth", "heart"), 1);
+    test(anagram("ape", "pea"), 1);
+    test(anagram("hellooo", "helloo"), 0);
+    test(anagram("hi", "hi"), 0);
     return 0;
 }
