@@ -1,4 +1,4 @@
-# Anagram
+# Hacker Language
 
 - [English](#english)
 - [Español](#español)
